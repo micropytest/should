@@ -1,0 +1,13 @@
+__pycache__
+callability
+depbot
+González
+MICROPY
+micropytest
+micropython
+mpremote
+pipx
+pyproject
+pytest
+Raúl
+siakro

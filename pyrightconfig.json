@@ -1,0 +1,7 @@
+{
+  "pythonVersion": "3.10",
+  "pythonPlatform": "All",
+  "include": ["should/", "tests/"],
+  "exclude": ["**/node_modules/", "**/__pycache__/", ".git"],
+  "defineConstant": { "TYPE:CHECKING": true }
+}

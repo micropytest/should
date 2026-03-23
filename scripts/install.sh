@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+
+declare -ra deps=$(jq -r ".deps[] | .[0]" package.json)
+
+for dep in ${deps[@]}; do
+  micropython -m mip install $dep
+done

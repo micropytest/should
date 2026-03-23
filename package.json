@@ -1,0 +1,31 @@
+{
+  "version": "0.1.0",
+  "deps": [
+    [
+      "abc",
+      "latest"
+    ],
+    [
+      "unittest",
+      "latest"
+    ],
+    [
+      "unittest-discover",
+      "latest"
+    ],
+    [
+      "typing.py",
+      "github:micropytest/micropython-stdlib/typing/typing.py"
+    ]
+  ],
+  "urls": [
+    [
+      "should/__init__.py",
+      "should/__init__.py"
+    ],
+    [
+      "should/_should.py",
+      "should/_should.py"
+    ]
+  ]
+}
