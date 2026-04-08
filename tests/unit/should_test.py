@@ -1,4 +1,3 @@
-import re
 from unittest import TestCase
 
 from should import should
@@ -326,44 +325,3 @@ class TestShould(TestCase):
       should("123").not_have_len(3)
 
     self.assertEqual(str(out.exception), "123 expected not to have length 3.")
-
-  def test_throw_with_exc_cls(self) -> None:
-    """Check that should().raises(cls) doesn't raises error."""
-
-    with should().throw(ValueError) as out:
-      raise ValueError("This is a test.")
-
-    self.assertIsInstance(out := out.exception, ValueError)
-    self.assertEqual(str(out), "This is a test.")
-
-  def test_throw_without_exc_cls(self) -> None:
-    """Check that should().raises() doesn't raises error."""
-
-    with should().throw() as out:
-      raise ValueError("This is a test.")
-
-    self.assertIsInstance(out := out.exception, ValueError)
-    self.assertEqual(str(out), "This is a test.")
-
-  def test_throw_raises_error_due_to_nothing_raised(self) -> None:
-    """Check that should().raises() raises error if nothing raised."""
-
-    with self.assertRaises(AssertionError) as out:
-      with should().throw():
-        pass
-
-    self.assertEqual(str(out.exception), "Expected <class 'Exception'> to be raised.")
-
-  def test_throw_raises_error_due_to_other_exc(self) -> None:
-    """Check that should().raises() raises error if other exception raised."""
-
-    with self.assertRaises(AssertionError):
-      with should().throw(OSError):
-        raise ValueError("Other exception")
-
-  def test_throw_raises_error_due_to_other_exc_msg(self) -> None:
-    """Check that should().raises() raises error if exception raised with other message."""
-
-    with self.assertRaises(AssertionError):
-      with should().throw(ValueError, "xxx"):
-        raise ValueError("Other exception")

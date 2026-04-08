@@ -26,8 +26,8 @@ The project aims to provide a simple and effective way to handle assertions in a
 /
 ├───.github/              # GitHub Actions workflows and templates
 ├───scripts/
-│   ├───install.sh        # Dependency installation script
-│   └───tests.sh          # Test execution script
+│   ├───install           # Dependency installation script
+│   └───tests             # Test execution script
 ├───should/
 │   ├───__init__.py
 │   └───_should.py        # Core assertion logic
@@ -58,7 +58,7 @@ All commands should be run from the project root:
   The primary test script executes unit tests using a **MicroPython** environment:
 
   ```bash
-  poetry run scripts/tests.sh
+  poetry run scripts/tests
   ```
 
 - **Linting**.
