@@ -60,7 +60,7 @@ class AssertValue:
     return self
 
   def be_false(self) -> "AssertValue":
-    """Checks whether the value is true."""
+    """Checks whether the value is false."""
 
     assert not (v := self._value), f"{v} expected to be False."
     return self
@@ -156,7 +156,7 @@ class AssertValue:
     return self
 
   def not_have_len(self, size: int) -> "AssertValue":
-    """Checks whether the value has a given length."""
+    """Checks whether the value does not have a given length."""
 
     assert len(v := self._value) != size, f"{v} expected not to have length {size}."
     return self
@@ -179,4 +179,6 @@ class AssertValue:
     except Exception as e:
       assert_caught_error(e, E, match)
     else:
-      raise AssertionError(f"{v.__name__} expected to raise '{E}'. Nothing raised.")
+      raise AssertionError(
+        f"{getattr(v, '__name__', str(v))} expected to raise '{getattr(E, '__name__', str(E))}'. Nothing raised."
+      )

@@ -77,7 +77,7 @@ class TestShouldThrow(TestCase):
 
     self.assertEqual(
       str(out.exception),
-      "<lambda> expected to raise '<class 'Exception'>'. Nothing raised.",
+      "<lambda> expected to raise 'Exception'. Nothing raised.",
     )
 
   def test_throw_raises_error_due_to_other_exc(self) -> None:

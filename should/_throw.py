@@ -32,14 +32,3 @@ class AssertThrowContext:
     # (2) assert
     self.e = value
     return assert_caught_error(self.e, self.E, self.match)
-
-
-def throw(E: type[Exception] = Exception, match: str | None = None) -> AssertThrowContext:
-  """Checks whether an error raised.
-
-  Args:
-    E: Exception class to be raised and caught.
-    match: Pattern to comply the message.
-  """
-
-  return AssertThrowContext(E, match)

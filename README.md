@@ -137,7 +137,7 @@ should(fn).throw(ValueError, "is an error")
 
 #### Using a context manager
 
-- **`should().throw(exception=None, message_pattern=None)`**: Asserts that a callable raises a specific exception, optionally matching the exception message against a regex pattern.
+- **`should.throw(exception=None, message_pattern=None)`**: Asserts that a callable raises a specific exception, optionally matching the exception message against a regex pattern.
 
 ```python
 # check for exception raised
