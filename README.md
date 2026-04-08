@@ -125,14 +125,30 @@ should("micropython").not_be_like("java")
 
 ### Exception Handling
 
-- **`should().throw(exception=None, message_pattern=None)`**: Asserts that a callable raises a specific exception, optionally matching the exception message against a regex pattern.
+#### Using a wrapped value
+
+- **`should(fn).throw(exception=None, message_pattern=None)`**: Asserts that a callable raises a specific exception, optionally matching the exception message against a regex pattern.
 
 ```python
+should(fn).throw()
+should(fn).throw(ValueError)
+should(fn).throw(ValueError, "is an error")
+```
+
+#### Using a context manager
+
+- **`should.throw(exception=None, message_pattern=None)`**: Asserts that a callable raises a specific exception, optionally matching the exception message against a regex pattern.
+
+```python
+# check for exception raised
+with should.throw():
+  # code where the exception should be raised
+
 # check for the exception type
-with should().throw(ValueError):
-  raise ValueError("This is an error")
+with should.throw(ValueError):
+  # code where the exception should be raised
 
 # check for the exception type and message
-with should().throw(ValueError, "is an error"):
-  raise ValueError("This is an error")
+with should.throw(ValueError, "is an error"):
+  # code where the exception should be raised
 ```

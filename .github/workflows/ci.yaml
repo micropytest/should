@@ -79,8 +79,8 @@ jobs:
       
       - name: Setup MicroPython dependencies
         run: |
-          poetry run scripts/install.sh
+          poetry run scripts/install
       
       - name: Run unit tests
         run: |
-          poetry run scripts/tests.sh
+          poetry run scripts/tests

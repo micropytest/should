@@ -1,5 +1,27 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
+  "urls": [
+    [
+      "should/__init__.py",
+      "should/__init__.py"
+    ],
+    [
+      "should/_assert.py",
+      "should/_assert.py"
+    ],
+    [
+      "should/_should.py",
+      "should/_should.py"
+    ],
+    [
+      "should/_throw.py",
+      "should/_throw.py"
+    ],
+    [
+      "should/_util.py",
+      "should/_util.py"
+    ]
+  ],
   "deps": [
     [
       "abc",
@@ -15,17 +37,7 @@
     ],
     [
       "typing.py",
-      "github:micropytest/micropython-stdlib/typing/typing.py"
-    ]
-  ],
-  "urls": [
-    [
-      "should/__init__.py",
-      "should/__init__.py"
-    ],
-    [
-      "should/_should.py",
-      "should/_should.py"
+      "github:micropytest/micropython-stdlib/src/typing"
     ]
   ]
 }
