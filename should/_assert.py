@@ -132,7 +132,7 @@ class AssertValue(Wrapper):
   def not_have(self, name: str) -> "AssertValue":
     """Check whether the value has a given item."""
 
-    assert name not in (v := self._value), f"{v} expected to have item '{name}'."
+    assert name not in (v := self._value), f"{v} expected not to have item '{name}'."
     return self
 
   def have_len(self, size: int) -> "AssertValue":
@@ -169,11 +169,7 @@ class AssertValue(Wrapper):
 
 
 class AssertItemValue(Wrapper):
-  """A wrapper for the value to check.
-
-  Attributes:
-    value: Value to check.
-  """
+  """A wrapper for the value to check."""
 
   def like(self, pat: str | re.Pattern) -> "AssertItemValue":
     """Checks whether the value complies with a given pattern."""

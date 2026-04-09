@@ -155,7 +155,7 @@ with should.throw(ValueError, "is an error"):
 
 ### Assertions on items
 
-**`should(value).have()`** allows works with items, for example, from a dictionary.
+**`should(value).have(item)`** works with items, for example, from a dictionary.
 Example:
 
 ```python

@@ -351,4 +351,4 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should(dict(x=12)).not_have("x")
 
-    self.assertEqual(str(out.exception), "{'x': 12} expected to have item 'x'.")
+    self.assertEqual(str(out.exception), "{'x': 12} expected not to have item 'x'.")
