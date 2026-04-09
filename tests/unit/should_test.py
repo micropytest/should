@@ -1,6 +1,7 @@
 from unittest import TestCase
 
 from should import should
+from should._assert import AssertItemValue
 from should._should import AssertValue
 
 
@@ -325,3 +326,29 @@ class TestShould(TestCase):
       should("123").not_have_len(3)
 
     self.assertEqual(str(out.exception), "123 expected not to have length 3.")
+
+  def test_have(self) -> None:
+    """Check that should(v).have("item") returns a wrapper."""
+
+    self.assertIsInstance(should(dict(x=12, y=34)).have("x"), AssertItemValue)
+
+  def test_have_raises_err(self) -> None:
+    """Check that should(v).have("item") raises error if item not existing."""
+
+    with self.assertRaises(AssertionError) as out:
+      should(dict()).have("x")
+
+    self.assertEqual(str(out.exception), "{} expected to have item 'x'.")
+
+  def test_not_have(self) -> None:
+    """Check that should(v).not_have("item") if not existing."""
+
+    should(dict()).not_have("x")
+
+  def test_not_have_raises_err(self) -> None:
+    """Check that should(v).not_have("iem") raises error if existing."""
+
+    with self.assertRaises(AssertionError) as out:
+      should(dict(x=12)).not_have("x")
+
+    self.assertEqual(str(out.exception), "{'x': 12} expected to have item 'x'.")

@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0",
+  "version": "0.3.0",
   "urls": [
     [
       "should/__init__.py",
@@ -20,6 +20,10 @@
     [
       "should/_util.py",
       "should/_util.py"
+    ],
+    [
+      "should/_wrapper.py",
+      "should/_wrapper.py"
     ]
   ],
   "deps": [

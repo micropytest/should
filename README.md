@@ -152,3 +152,50 @@ with should.throw(ValueError):
 with should.throw(ValueError, "is an error"):
   # code where the exception should be raised
 ```
+
+### Assertions on items
+
+**`should(value).have()`** allows works with items, for example, from a dictionary.
+Example:
+
+```python
+should(dict(x=12, y=34)).have("x").eq(12)
+should(dict(x=12, y=34)).not_have("z")
+```
+
+When this assert method used, the following assert methods can be used:
+
+- **`should(v).have(i).like(pattern: str | re.Pattern)`**
+
+- **`should(v).have(i).not_like(pattern: str | re.Pattern)`**
+
+- **`should(v).have(i).instance_of(cls: type)`**:
+
+- **`should(v).have(i).not_instance_of(cls: type)`**
+
+- **`should(v).have(i).to_true()`**:
+
+- **`should(v).have(i).to_false()`**
+
+- **`should(v).have(i).same_as(o: Any)`**, similar to **`be()`**
+
+- **`should(v).have(i).not_same_as(o: Any)`**
+
+- **`should(v).have(i).len(size: int)`**
+
+- **`should(v).have(i).eq(o: Any)`**
+
+- **`should(v).have(i).not_eq(o: Any)`**
+
+- **`should(v).have(i).lt(o: Any)`**
+
+- **`should(v).have(i).le(o: Any)`**
+
+- **`should(v).have(i).gt(o: Any)`**
+
+- **`should(v).have(i).ge(o: Any)`**
+
+- **`should(v).have(i).included_in(i: Iterable[Any])`**
+
+- **`should(v).have(i).not_in(i: Iterable[Any])`**
+

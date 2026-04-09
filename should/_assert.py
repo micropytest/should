@@ -1,129 +1,105 @@
 import re
 
 from ._util import assert_caught_error
+from ._wrapper import Wrapper
 
 TYPE_CHECKING = False
 if TYPE_CHECKING:
   from typing import Any, Iterable
 
 
-class AssertValue:
-  """A wrapper for the value to check.
-
-  Attributes:
-    value: Value to check.
-  """
-
-  def __init__(self, value: Any):
-    self._value = value
+class AssertValue(Wrapper):
+  """A wrapper for a value to check."""
 
   def be_like(self, pat: str | re.Pattern) -> "AssertValue":
     """Checks whether the value complies with a given pattern."""
 
-    assert re.search(pat, v := self._value) is not None, f"'{v}' expected to be like '{pat}'."
-    return self
+    return self._like(pat)  # type: ignore
 
   def not_be_like(self, pat: str | re.Pattern) -> "AssertValue":
     """Checks whether the value doesn't comply with a given pattern."""
 
-    assert re.search(pat, v := self._value) is None, f"'{v}' expected not to be like '{pat}'."
-    return self
+    return self._not_like(pat)  # type: ignore
 
   def be_instance_of(self, cls: type) -> "AssertValue":
     """Checks whether the value is an instance of the given type."""
 
-    assert isinstance(v := self._value, cls), f"{v} expected to be instance of {cls}."
-    return self
+    return self._instance_of(cls)  # type: ignore
 
   def not_be_instance_of(self, cls: type) -> "AssertValue":
     """Checks whether the value is not an instance of the given type."""
 
-    assert not isinstance(v := self._value, cls), f"{v} expected not to be instance of {cls}."
-    return self
+    return self._not_instance_of(cls)  # type: ignore
 
   def be_callable(self) -> "AssertValue":
     """Checks whether the value is callable."""
 
-    assert callable(v := self._value), f"{v} expected to be callable."
-    return self
+    return self._callable()  # type: ignore
 
   def not_be_callable(self) -> "AssertValue":
     """Checks whether the value is not callable."""
 
-    assert not callable(v := self._value), f"{v} expected not to be callable."
-    return self
+    return self._not_callable()  # type: ignore
 
   def be_true(self) -> "AssertValue":
     """Checks whether the value is true."""
 
-    assert (v := self._value), f"{v} expected to be True."
-    return self
+    return self._true()  # type: ignore
 
   def be_false(self) -> "AssertValue":
     """Checks whether the value is false."""
 
-    assert not (v := self._value), f"{v} expected to be False."
-    return self
+    return self._false()  # type: ignore
 
   def be_none(self) -> "AssertValue":
     """Checks whether the value is None."""
 
-    assert (v := self._value) is None, f"{v} expected to be None."
-    return self
+    return self._none()  # type: ignore
 
   def not_be_none(self) -> "AssertValue":
     """Checks whether the value is not None."""
 
-    assert (v := self._value) is not None, f"{v} expected not to be None."
-    return self
+    return self._not_none()  # type: ignore
 
   def be(self, o: Any) -> "AssertValue":
     """Checks whether the value is the same as another."""
 
-    assert (v := self._value) is o, f"{v} expected to be {o}."
-    return self
+    return self._same_as(o)  # type: ignore
 
   def not_be(self, o: Any) -> "AssertValue":
     """Checks whether the value is not the same as another."""
 
-    assert (v := self._value) is not o, f"{v} expected not to be {o}."
-    return self
+    return self._not_same_as(o)  # type: ignore
 
   def be_eq(self, o: Any) -> "AssertValue":
     """Checks whether the value is equal to another."""
 
-    assert (v := self._value) == o, f"{v} expected to be equal to {o}."
-    return self
+    return self._eq(o)  # type: ignore
 
   def not_be_eq(self, o: Any) -> "AssertValue":
     """Checks whether the value is not equal to another."""
 
-    assert (v := self._value) != o, f"Expected {v} to be different."
-    return self
+    return self._not_eq(o)  # type: ignore
 
   def be_lt(self, o: Any) -> "AssertValue":
     """Checks whether the value is less than another."""
 
-    assert (v := self._value) < o, f"{v} expected to be less than {o}."
-    return self
+    return self._lt(o)  # type: ignore
 
   def be_le(self, o: Any) -> "AssertValue":
     """Checks whether the value is less than or equal to another."""
 
-    assert (v := self._value) <= o, f"{v} expected to be less than or equal to {o}."
-    return self
+    return self._le(o)  # type: ignore
 
   def be_gt(self, o: Any) -> "AssertValue":
     """Checks whether the value is greater than another."""
 
-    assert (v := self._value) > o, f"{v} expected to be greater than {o}."
-    return self
+    return self._gt(o)  # type: ignore
 
   def be_ge(self, o: Any) -> "AssertValue":
     """Checks whether the value is greater than o equal to another."""
 
-    assert (v := self._value) >= o, f"{v} expected to be greater than or equal to {o}."
-    return self
+    return self._ge(o)  # type: ignore
 
   def contain(self, o: Any) -> "AssertValue":
     """Checks whether the iterable value contains a given value."""
@@ -140,26 +116,34 @@ class AssertValue:
   def be_in(self, i: Iterable[Any]) -> "AssertValue":
     """Checks whether the value is in an iterable."""
 
-    assert (v := self._value) in i, f"{v} expected to be in {i}."
-    return self
+    return self._in(i)  # type: ignore
 
   def not_be_in(self, i: Iterable[Any]) -> "AssertValue":
     """Checks whether the value is not in an iterable."""
 
-    assert (v := self._value) not in i, f"{v} expected not to be in {i}."
+    return self._not_in(i)  # type: ignore
+
+  def have(self, name: str) -> "AssertItemValue":
+    """Check whether the value has a given item."""
+
+    assert name in (v := self._value), f"{v} expected to have item '{name}'."
+    return AssertItemValue(v[name])
+
+  def not_have(self, name: str) -> "AssertValue":
+    """Check whether the value has a given item."""
+
+    assert name not in (v := self._value), f"{v} expected to have item '{name}'."
     return self
 
   def have_len(self, size: int) -> "AssertValue":
     """Checks whether the value has a given length."""
 
-    assert len(v := self._value) == size, f"{v} expected to have length {size}."
-    return self
+    return self._len(size)  # type: ignore
 
   def not_have_len(self, size: int) -> "AssertValue":
     """Checks whether the value does not have a given length."""
 
-    assert len(v := self._value) != size, f"{v} expected not to have length {size}."
-    return self
+    return self._not_len(size)  # type: ignore
 
   def throw(self, E: type[Exception] = Exception, match: str | None = None) -> None:
     """Checks whether a function raises an error.
@@ -182,3 +166,96 @@ class AssertValue:
       raise AssertionError(
         f"{getattr(v, '__name__', str(v))} expected to raise '{getattr(E, '__name__', str(E))}'. Nothing raised."
       )
+
+
+class AssertItemValue(Wrapper):
+  """A wrapper for the value to check.
+
+  Attributes:
+    value: Value to check.
+  """
+
+  def like(self, pat: str | re.Pattern) -> "AssertItemValue":
+    """Checks whether the value complies with a given pattern."""
+
+    return self._like(pat)  # type: ignore
+
+  def not_like(self, pat: str | re.Pattern) -> "AssertItemValue":
+    """Checks whether the value doesn't comply with a given pattern."""
+
+    return self._not_like(pat)  # type: ignore
+
+  def instance_of(self, cls: type) -> "AssertItemValue":
+    """Checks whether the value is an instance of the given type."""
+
+    return self._instance_of(cls)  # type: ignore
+
+  def not_instance_of(self, cls: type) -> "AssertItemValue":
+    """Checks whether the value is not an instance of the given type."""
+
+    return self._not_instance_of(cls)  # type: ignore
+
+  def to_true(self) -> "AssertItemValue":
+    """Checks whether the value is true."""
+
+    return self._true()  # type: ignore
+
+  def to_false(self) -> "AssertItemValue":
+    """Checks whether the value is false."""
+
+    return self._false()  # type: ignore
+
+  def same_as(self, o: Any) -> "AssertItemValue":
+    """Checks whether the value is the same as another."""
+
+    return self._same_as(o)  # type: ignore
+
+  def not_same_as(self, o: Any) -> "AssertItemValue":
+    """Checks whether the value is not the same as another."""
+
+    return self._not_same_as(o)  # type: ignore
+
+  def len(self, size: int) -> "AssertItemValue":
+    """Checks whether the value has a given length."""
+
+    return self._len(size)  # type: ignore
+
+  def eq(self, o: Any) -> "AssertItemValue":
+    """Checks whether the value is equal to another."""
+
+    return self._eq(o)  # type: ignore
+
+  def not_eq(self, o: Any) -> "AssertItemValue":
+    """Checks whether the value is not equal to another."""
+
+    return self._not_eq(o)  # type: ignore
+
+  def lt(self, o: Any) -> "AssertItemValue":
+    """Checks whether the value is less than another."""
+
+    return self._lt(o)  # type: ignore
+
+  def le(self, o: Any) -> "AssertItemValue":
+    """Checks whether the value is less than or equal to another."""
+
+    return self._le(o)  # type: ignore
+
+  def gt(self, o: Any) -> "AssertItemValue":
+    """Checks whether the value is greater than another."""
+
+    return self._gt(o)  # type: ignore
+
+  def ge(self, o: Any) -> "AssertItemValue":
+    """Checks whether the value is greater than o equal to another."""
+
+    return self._ge(o)  # type: ignore
+
+  def included_in(self, i: Iterable[Any]) -> "AssertItemValue":
+    """Checks whether the value is in an iterable."""
+
+    return self._in(i)  # type: ignore
+
+  def not_in(self, i: Iterable[Any]) -> "AssertItemValue":
+    """Checks whether the value is not in an iterable."""
+
+    return self._not_in(i)  # type: ignore
