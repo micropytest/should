@@ -1,3 +1,4 @@
+import inspect
 import re
 
 TYPE_CHECKING = False
@@ -37,6 +38,12 @@ class Wrapper:
     """Checks whether the value is not an instance of the given type."""
 
     assert not isinstance(v := self._value, cls), f"{v} expected not to be instance of {cls}."
+    return self
+
+  def _isclass(self) -> "Wrapper":
+    """Checks whether the value is a class object."""
+
+    assert inspect.isclass(v := self._value), f"{v} expected to be a class object."
     return self
 
   def _callable(self) -> "Wrapper":

@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-**Should** is a lightweight assertion framework designed for **MicroPython** and **MicroPytest**.
+**Should** is a lightweight assertion framework designed for **micro:Pytest** and **MicroPython**.
 It offers a fluent, chainable API that allows for writing expressive and readable tests.
 The project aims to provide a simple and effective way to handle assertions in a **MicroPython** environment.
 

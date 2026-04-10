@@ -67,6 +67,19 @@ class TestShould(TestCase):
 
     self.assertEqual(str(out.exception), "123 expected not to be instance of <class 'int'>.")
 
+  def test_be_class(self) -> None:
+    """Check that should(v).be_class() returns the wrapper."""
+
+    self.assertIsInstance(should(TestShould).be_class(), AssertValue)
+
+  def test_be_class_raises_error(self) -> None:
+    """Check that should(v).be_class() raises error when the value is not a class."""
+
+    with self.assertRaises(AssertionError) as out:
+      should(None).be_class()
+
+    self.assertEqual(str(out.exception), "None expected to be a class object.")
+
   def test_be_callable(self) -> None:
     """Check that should(v1).be_callable() returns the wrapper."""
 

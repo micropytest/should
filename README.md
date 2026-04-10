@@ -1,6 +1,6 @@
 # Should
 
-An assertion lib for **MicroPython** and **MicroPytest**.
+An assertion lib for **micro:Pytest** and **MicroPython**.
 
 ## Install
 
@@ -96,6 +96,8 @@ should([1, 2]).not_have_len(3)
 - **`should(value).be_instance_of(class)`**: Asserts that the value is an instance of the given class.
 
 - **`should(value).not_be_instance_of(class)`**: Asserts that the value is not an instance of the given class.
+
+- **`should(value).be_class()`**: Asserts that the value is a class object.
 
 - **`should(value).be_callable()`**: Asserts that the value is callable (e.g., a function).
 
