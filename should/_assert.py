@@ -31,6 +31,11 @@ class AssertValue(Wrapper):
 
     return self._not_instance_of(cls)  # type: ignore
 
+  def be_class(self) -> "AssertValue":
+    """Checks whether the value is a class object."""
+
+    return self._isclass()  # type:ignore
+
   def be_callable(self) -> "AssertValue":
     """Checks whether the value is callable."""
 
