@@ -1,4 +1,5 @@
-metadata(version="0.4.0")
+metadata(version="0.4.1")
 package("should")
 require("abc")
 require("inspect")
+require("github:micropytest/micropython-stdlib/src/typing")
