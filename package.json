@@ -36,14 +36,6 @@
       "latest"
     ],
     [
-      "unittest",
-      "latest"
-    ],
-    [
-      "unittest-discover",
-      "latest"
-    ],
-    [
       "github:micropytest/micropython-stdlib/src/typing",
       "latest"
     ]

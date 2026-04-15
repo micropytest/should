@@ -1,7 +1,8 @@
 #!/usr/bin/bash
 
-declare -ra deps=$(jq -r ".deps[] | .[0]" package.json)
+declare -ra prod=($(jq -r ".deps[] | .[0]" package.json))
+declare -ra dev=(unittest unittest-discover)
 
-for dep in ${deps[@]}; do
-  micropython -m mip install $dep
+for dep in "${prod[@]}" "${dev[@]}"; do
+  micropython -m mip install "$dep"
 done
