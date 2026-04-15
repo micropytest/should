@@ -1,0 +1,36 @@
+{
+  "v": "0.4.1",
+  "name": "should",
+  "desc": "An assertion lib for micro:Pytest and MicroPython.",
+  "keywords": ["assertion", "testing"],
+  "urls": {
+    "homepage": "https://micropytest.com",
+    "git": "https://github.com/micropytest/should",
+    "issues": "https://github.com/micropytest/should/issues"
+  },
+
+  "src": {
+    "dir": "should",
+    "include": [
+      "__init__.py",
+      "_assert.py",
+      "_should.py",
+      "_throw.py",
+      "_util.py",
+      "_wrapper.py"
+    ]
+  },
+
+  "deps": {
+    "dir": "lib",
+    "prod": {
+      "abc": "lib://abc",
+      "inspect": "lib://inspect",
+      "typing": "github://micropytest/micropython-stdlib/src/typing"
+    },
+    "dev": {
+      "unittest": "lib://unittest",
+      "unittest-discover": "lib://unittest-discover"
+    }
+  }
+}
