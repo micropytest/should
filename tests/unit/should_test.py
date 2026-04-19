@@ -62,7 +62,7 @@ class TestShould(TestCase):
       "'Micropython' expected to start with 'micro'.",
     )
 
-  def test_env_with(self) -> None:
+  def test_end_with(self) -> None:
     """Check that should(v).end_with(suffix) returns the wrapper when ok."""
 
     self.assertIsInstance(
@@ -71,7 +71,7 @@ class TestShould(TestCase):
     )
 
   def test_end_with_raises_error(self) -> None:
-    """Check that should(v).end_with(prefix) raises error when not ending with
+    """Check that should(v).end_with(suffix) raises error when not ending with
     the given suffix.
     """
 
