@@ -28,6 +28,20 @@ class Wrapper:
     assert re.search(pat, v := self._value) is None, f"'{v}' expected not to be like '{pat}'."
     return self
 
+  def _start_with(self, prefix: str) -> "Wrapper":
+    """Checks whether the value starts with a given prefix."""
+
+    self._instance_of(str)
+    assert (v := self._value).startswith(prefix), f"{v!r} expected to start with {prefix!r}."
+    return self
+
+  def _end_with(self, suffix: str) -> "Wrapper":
+    """Checks whether the value ends with a given suffix."""
+
+    self._instance_of(str)
+    assert (v := self._value).endswith(suffix), f"{v!r} expected to end with {suffix!r}."
+    return self
+
   def _instance_of(self, cls: type) -> "Wrapper":
     """Checks whether the value is an instance of the given type."""
 

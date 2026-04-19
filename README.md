@@ -120,9 +120,15 @@ should(123).not_be_callable()
 
 - **`should(value).not_be_like(pattern)`**: Asserts that the string value does not match the given regular expression pattern.
 
+- **`should(value).start_with(prefix)`**: Asserts that the string value starts with the given prefix.
+
+- **`should(value).end_with(suffix)`**: Asserts that the string value ends with the given suffix.
+
 ```python
 should("assertion test").be_like("assert")
 should("micropython").not_be_like("java")
+should("micropython").start_with("micro")
+should("micropython").end_with("python")
 ```
 
 ### Exception Handling

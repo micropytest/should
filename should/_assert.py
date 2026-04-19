@@ -21,6 +21,16 @@ class AssertValue(Wrapper):
 
     return self._not_like(pat)  # type: ignore
 
+  def start_with(self, prefix: str) -> "AssertValue":
+    """Checks whether the value starts with a given prefix."""
+
+    return self._start_with(prefix)  # type: ignore
+
+  def end_with(self, suffix: str) -> "AssertValue":
+    """Checks whether the value ends with a given suffix."""
+
+    return self._end_with(suffix)  # type: ignore
+
   def be_instance_of(self, cls: type) -> "AssertValue":
     """Checks whether the value is an instance of the given type."""
 

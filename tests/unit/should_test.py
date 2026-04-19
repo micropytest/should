@@ -41,6 +41,48 @@ class TestShould(TestCase):
       "'this is an assertion test' expected not to be like 'an assertion'.",
     )
 
+  def test_start_with(self) -> None:
+    """Check that should(v).start_with(prefix) returns the wrapper when ok."""
+
+    self.assertIsInstance(
+      should("micropython").start_with("micro"),
+      AssertValue,
+    )
+
+  def test_start_with_raises_error(self) -> None:
+    """Check that should(v).start_with(prefix) raises error when not starting with
+    the given prefix.
+    """
+
+    with self.assertRaises(AssertionError) as out:
+      should("Micropython").start_with("micro")
+
+    self.assertEqual(
+      str(out.exception),
+      "'Micropython' expected to start with 'micro'.",
+    )
+
+  def test_env_with(self) -> None:
+    """Check that should(v).end_with(suffix) returns the wrapper when ok."""
+
+    self.assertIsInstance(
+      should("micropython").end_with("python"),
+      AssertValue,
+    )
+
+  def test_end_with_raises_error(self) -> None:
+    """Check that should(v).end_with(prefix) raises error when not ending with
+    the given suffix.
+    """
+
+    with self.assertRaises(AssertionError) as out:
+      should("Micropython").end_with("Python")
+
+    self.assertEqual(
+      str(out.exception),
+      "'Micropython' expected to end with 'Python'.",
+    )
+
   def test_be_instance_of(self) -> None:
     """Check that should(v1).be_instance_of(cls) returns the wrapper."""
 
