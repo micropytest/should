@@ -1,12 +1,14 @@
 import inspect
+import json
 import re
+from abc import ABC
 
 TYPE_CHECKING = False
 if TYPE_CHECKING:
   from typing import Any, Iterable
 
 
-class Wrapper:
+class Wrapper(ABC):
   """Base for the wrappers.
 
   Attributes:
@@ -15,6 +17,15 @@ class Wrapper:
 
   def __init__(self, value: Any):
     self._value = value
+
+  def _json(self) -> "Wrapper":
+    """Checks whether the value is a valid JSON."""
+
+    try:
+      assert json.loads(self._value)
+      return self
+    except:
+      raise AssertionError(f"{self._value!r} expected to be a valid JSON string.")
 
   def _like(self, pat: str | re.Pattern) -> "Wrapper":
     """Checks whether the value complies with a given pattern."""

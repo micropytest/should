@@ -6,6 +6,19 @@ from should._should import AssertValue
 
 
 class TestShould(TestCase):
+  def test_be_json(self) -> None:
+    """Check that should(v).be_json() returns the wrapper."""
+
+    self.assertIsInstance(should("""{"x": "1.2.3"}""").be_json(), AssertValue)
+
+  def test_be_json_raises_error(self) -> None:
+    """Check that should(v).be_json() raises error when not JSON string."""
+
+    with self.assertRaises(AssertionError) as out:
+      should("x").be_json()
+
+    self.assertEqual(str(out.exception), "'x' expected to be a valid JSON string.")
+
   def test_be_like(self) -> None:
     """Check that should(v1).be_like(v2) returns the wrapper."""
 
