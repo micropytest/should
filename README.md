@@ -124,11 +124,14 @@ should(123).not_be_callable()
 
 - **`should(value).end_with(suffix)`**: Asserts that the string value ends with the given suffix.
 
+- **`should(value).be_json()`**: Asserts that the string value is a valid JSON string.
+
 ```python
 should("assertion test").be_like("assert")
 should("micropython").not_be_like("java")
 should("micropython").start_with("micro")
 should("micropython").end_with("python")
+should("""{"v": "1.2.3"}""").be_json()
 ```
 
 ### Exception Handling

@@ -11,6 +11,11 @@ if TYPE_CHECKING:
 class AssertValue(Wrapper):
   """A wrapper for a value to check."""
 
+  def be_json(self) -> "AssertValue":
+    """Checks whether the value is a valid JSON string."""
+
+    return self._json()  # type: ignore
+
   def be_like(self, pat: str | re.Pattern) -> "AssertValue":
     """Checks whether the value complies with a given pattern."""
 
