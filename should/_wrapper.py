@@ -21,8 +21,11 @@ class Wrapper(ABC):
   def _json(self) -> "Wrapper":
     """Checks whether the value is a valid JSON."""
 
-    assert json.loads(v := self._value), f"{v!r} expected to be a valid JSON string."
-    return self
+    try:
+      assert json.loads(self._value)
+      return self
+    except:
+      raise AssertionError(f"{self._value!r} expected to be a valid JSON string.")
 
   def _like(self, pat: str | re.Pattern) -> "Wrapper":
     """Checks whether the value complies with a given pattern."""
