@@ -5,6 +5,7 @@ González
 MICROPY
 micropytest
 micropython
+mpmi
 mpremote
 pipx
 pyproject
