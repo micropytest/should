@@ -1,6 +1,3 @@
-from dbm.ndbm import library
-
-
 package("should")
 metadata(version="2026.6.0")
 
