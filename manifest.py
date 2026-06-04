@@ -1,5 +1,10 @@
-metadata(version="0.4.1")
 package("should")
+metadata(version="2026.6.0")
+
+# dep libraries
+add_library("lib", "deps/lib")
+
+# dep freezing
 require("abc")
 require("inspect")
-require("github:micropytest/micropython-stdlib/src/typing")
+require("typing", library="lib")
