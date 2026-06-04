@@ -3,6 +3,7 @@ callability
 depbot
 González
 MICROPY
+micropypath
 micropytest
 micropython
 mpmi
