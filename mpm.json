@@ -1,11 +1,8 @@
 {
-  "v": "2026.6.0",
+  "v": "2026.6.1",
   "name": "should",
   "desc": "An assertion lib for micro:Pytest and MicroPython.",
-  "keywords": [
-    "assertion",
-    "testing"
-  ],
+  "keywords": ["assertion", "testing"],
   "urls": {
     "homepage": "https://micropytest.com",
     "issues": "https://github.com/micropytest/should/issues"
@@ -23,15 +20,8 @@
     ]
   },
   "deps": {
-    "dir": "deps/lib",
-    "prod": [
-      "lib://abc",
-      "lib://inspect",
-      "mpmi://typing"
-    ],
-    "dev": [
-      "lib://unittest",
-      "lib://unittest-discover"
-    ]
+    "lib": "deps/lib",
+    "prod": ["lib://abc", "lib://inspect", "mpmi://typing"],
+    "dev": ["lib://unittest", "lib://unittest-discover"]
   }
 }
