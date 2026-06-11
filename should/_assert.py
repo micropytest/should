@@ -36,12 +36,12 @@ class AssertValue(Wrapper):
 
     return self._end_with(suffix)  # type: ignore
 
-  def be_instance_of(self, cls: type) -> "AssertValue":
+  def be_instance_of(self, cls: type | str) -> "AssertValue":
     """Checks whether the value is an instance of the given type."""
 
     return self._instance_of(cls)  # type: ignore
 
-  def not_be_instance_of(self, cls: type) -> "AssertValue":
+  def not_be_instance_of(self, cls: type | str) -> "AssertValue":
     """Checks whether the value is not an instance of the given type."""
 
     return self._not_instance_of(cls)  # type: ignore

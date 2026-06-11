@@ -53,16 +53,24 @@ class Wrapper(ABC):
     assert (v := self._value).endswith(suffix), f"{v!r} expected to end with {suffix!r}."
     return self
 
-  def _instance_of(self, cls: type) -> "Wrapper":
+  def _instance_of(self, cls: type | str) -> "Wrapper":
     """Checks whether the value is an instance of the given type."""
 
-    assert isinstance(v := self._value, cls), f"{v} expected to be instance of {cls}."
+    if isinstance(cls, str):
+      assert type(v := self._value).__name__ == cls, f"{v} expected to be instance of {cls}."
+    else:
+      assert isinstance(v := self._value, cls), f"{v} expected to be instance of {cls}."
+
     return self
 
-  def _not_instance_of(self, cls: type) -> "Wrapper":
+  def _not_instance_of(self, cls: type | str) -> "Wrapper":
     """Checks whether the value is not an instance of the given type."""
 
-    assert not isinstance(v := self._value, cls), f"{v} expected not to be instance of {cls}."
+    if isinstance(cls, str):
+      assert type(v := self._value).__name__ != cls, f"{v} expected not to be instance of {cls}."
+    else:
+      assert not isinstance(v := self._value, cls), f"{v} expected not to be instance of {cls}."
+
     return self
 
   def _isclass(self) -> "Wrapper":

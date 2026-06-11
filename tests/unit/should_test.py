@@ -96,10 +96,15 @@ class TestShould(TestCase):
       "'Micropython' expected to end with 'Python'.",
     )
 
-  def test_be_instance_of(self) -> None:
-    """Check that should(v1).be_instance_of(cls) returns the wrapper."""
+  def test_be_instance_of_type(self) -> None:
+    """Check that should(v1).be_instance_of(type) returns the wrapper."""
 
     self.assertIsInstance(should(123).be_instance_of(int), AssertValue)
+
+  def test_be_instance_of_type_name(self) -> None:
+    """Check that should(v1).be_instance_of(str) returns the wrapper."""
+
+    self.assertIsInstance(should(123).be_instance_of("int"), AssertValue)
 
   def test_be_instance_of_raises_error(self) -> None:
     """Check that should(v1).be_instance_of(cls) raises error."""
@@ -109,10 +114,15 @@ class TestShould(TestCase):
 
     self.assertEqual(str(out.exception), "123 expected to be instance of <class 'str'>.")
 
-  def test_not_be_instance_of(self) -> None:
-    """Check that should(v1).not_be_instance_of(cls) returns the wrapper."""
+  def test_not_be_instance_of_type(self) -> None:
+    """Check that should(v1).not_be_instance_of(type) returns the wrapper."""
 
     self.assertIsInstance(should(123).not_be_instance_of(str), AssertValue)
+
+  def test_not_be_instance_of_type_name(self) -> None:
+    """Check that should(v1).not_be_instance_of(str) returns the wrapper."""
+
+    self.assertIsInstance(should(123).not_be_instance_of("str"), AssertValue)
 
   def test_not_be_instance_of_raises_error(self) -> None:
     """Check that should(v1).not_be_instance_of(cls) raises error."""
