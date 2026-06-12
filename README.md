@@ -99,6 +99,12 @@ should([1, 2]).not_have_len(3)
 
 - **`should(value).be_class()`**: Asserts that the value is a class object.
 
+- **`should(value).be_fn()`**: Asserts that the value is a function object.
+
+- **`should(value).be_coro_fn()`**: Asserts that the value is an asynchronous function object.
+
+- **`should(value).be_coro()`**: Asserts that the value is a coroutine.
+
 - **`should(value).be_callable()`**: Asserts that the value is callable (e.g., a function).
 
 - **`should(value).not_be_callable()`**: Asserts that the value is not callable.

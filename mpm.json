@@ -1,5 +1,5 @@
 {
-  "v": "2026.6.2",
+  "v": "2026.6.3",
   "name": "should",
   "desc": "An assertion lib for micro:Pytest and MicroPython.",
   "keywords": [
