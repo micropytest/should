@@ -51,6 +51,23 @@ class AssertValue(Wrapper):
 
     return self._isclass()  # type:ignore
 
+  def be_fn(self) -> "AssertValue":
+    """Checks that the value is a function object."""
+
+    return self._is_fn()  # type: ignore
+
+  def be_async_fn(self) -> "AssertValue":
+    """Checks that the value is an async function object."""
+
+    return self._is_async_fn()  # type: ignore
+
+  be_coro_fn = be_async_fn
+
+  def be_coro(self) -> "AssertValue":
+    """Checks that the value is a coroutine."""
+
+    return self._is_coro()  # type: ignore
+
   def be_callable(self) -> "AssertValue":
     """Checks whether the value is callable."""
 

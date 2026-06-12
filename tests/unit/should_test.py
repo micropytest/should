@@ -145,6 +145,51 @@ class TestShould(TestCase):
 
     self.assertEqual(str(out.exception), "None expected to be a class object.")
 
+  def test_be_fn(self) -> None:
+    """Check that should(v).be_fn() returns the wrapper when v is a function."""
+
+    self.assertIsInstance(should(lambda: None).be_fn(), AssertValue)
+
+  def test_be_fn_raises_error(self) -> None:
+    """Check that should(v).be_fn() raises error if v is not a function."""
+
+    with self.assertRaises(AssertionError) as out:
+      should(None).be_fn()
+
+    self.assertEqual(str(out.exception), "None expected to be a function object.")
+
+  def test_be_coro_fn(self) -> None:
+    """Check that should(v).be_coro_fn() returns the wrapper when v is an async/coroutine function."""
+
+    async def fn():
+      pass
+
+    self.assertIsInstance(should(fn).be_coro_fn(), AssertValue)
+
+  def test_be_coro_fn_raises_error(self) -> None:
+    """Check that should(v).be_coro_fn() raises error if v is not a coroutine function."""
+
+    with self.assertRaises(AssertionError) as out:
+      should(None).be_coro_fn()
+
+    self.assertEqual(str(out.exception), "None expected to be an async/coroutine function object.")
+
+  def test_be_coro(self) -> None:
+    """Check that should(v).be_coro() returns the wrapper if v is a coroutine."""
+
+    async def fn():
+      pass
+
+    self.assertIsInstance(should(fn()).be_coro(), AssertValue)
+
+  def test_be_coro_raises_error(self) -> None:
+    """Check that should(v).be_coro() raises error if v is not a coroutine."""
+
+    with self.assertRaises(AssertionError) as out:
+      should(None).be_coro()
+
+    self.assertEqual(str(out.exception), "None expected to be a coroutine.")
+
   def test_be_callable(self) -> None:
     """Check that should(v1).be_callable() returns the wrapper."""
 

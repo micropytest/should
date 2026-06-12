@@ -79,6 +79,28 @@ class Wrapper(ABC):
     assert inspect.isclass(v := self._value), f"{v} expected to be a class object."
     return self
 
+  def _is_fn(self) -> "Wrapper":
+    """Checks that the value is a function object."""
+
+    assert inspect.isfunction(v := self._value), f"{v} expected to be a function object."
+    return self
+
+  def _is_async_fn(self) -> "Wrapper":
+    """Checks that the value is an async/coroutine function object."""
+
+    assert inspect.iscoroutinefunction(v := self._value), (
+      f"{v} expected to be an async/coroutine function object."
+    )
+    return self
+
+  _is_coro = _is_async_fn
+
+  def _is_coro(self) -> "Wrapper":
+    """Checks that the value is a coroutine."""
+
+    assert inspect.iscoroutine(v := self._value), f"{v} expected to be a coroutine."
+    return self
+
   def _callable(self) -> "Wrapper":
     """Checks whether the value is callable."""
 
