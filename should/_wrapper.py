@@ -93,7 +93,7 @@ class Wrapper(ABC):
     )
     return self
 
-  _is_coro = _is_async_fn
+  _is_coro_fn = _is_async_fn
 
   def _is_coro(self) -> "Wrapper":
     """Checks that the value is a coroutine."""
