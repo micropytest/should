@@ -17,7 +17,7 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should("x").be_json()
 
-    self.assertEqual(str(out.exception), "'x' expected to be a valid JSON string.")
+    self.assertEqual(str(out.exception), "'x' (type: str) expected to be a valid JSON string.")
 
   def test_be_like(self) -> None:
     """Check that should(v1).be_like(v2) returns the wrapper."""
@@ -32,7 +32,7 @@ class TestShould(TestCase):
 
     self.assertEqual(
       str(out.exception),
-      "'this is an assertion test' expected to be like 'the damned'.",
+      "'this is an assertion test' (type: str) expected to be like 'the damned'.",
     )
 
   def test_not_be_like(self) -> None:
@@ -51,7 +51,7 @@ class TestShould(TestCase):
 
     self.assertEqual(
       str(out.exception),
-      "'this is an assertion test' expected not to be like 'an assertion'.",
+      "'this is an assertion test' (type: str) expected not to be like 'an assertion'.",
     )
 
   def test_start_with(self) -> None:
@@ -72,7 +72,7 @@ class TestShould(TestCase):
 
     self.assertEqual(
       str(out.exception),
-      "'Micropython' expected to start with 'micro'.",
+      "'Micropython' (type: str) expected to start with 'micro'.",
     )
 
   def test_end_with(self) -> None:
@@ -93,7 +93,7 @@ class TestShould(TestCase):
 
     self.assertEqual(
       str(out.exception),
-      "'Micropython' expected to end with 'Python'.",
+      "'Micropython' (type: str) expected to end with 'Python'.",
     )
 
   def test_be_instance_of_type(self) -> None:
@@ -112,7 +112,7 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should(123).be_instance_of(str)
 
-    self.assertEqual(str(out.exception), "123 expected to be instance of <class 'str'>.")
+    self.assertEqual(str(out.exception), "123 (type: int) expected to be instance of str.")
 
   def test_not_be_instance_of_type(self) -> None:
     """Check that should(v1).not_be_instance_of(type) returns the wrapper."""
@@ -130,7 +130,7 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should(123).not_be_instance_of(int)
 
-    self.assertEqual(str(out.exception), "123 expected not to be instance of <class 'int'>.")
+    self.assertEqual(str(out.exception), "123 (type: int) expected not to be instance of int.")
 
   def test_be_class(self) -> None:
     """Check that should(v).be_class() returns the wrapper."""
@@ -143,7 +143,7 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should(None).be_class()
 
-    self.assertEqual(str(out.exception), "None expected to be a class object.")
+    self.assertEqual(str(out.exception), "None (type: NoneType) expected to be a class object.")
 
   def test_be_fn(self) -> None:
     """Check that should(v).be_fn() returns the wrapper when v is a function."""
@@ -156,7 +156,7 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should(None).be_fn()
 
-    self.assertEqual(str(out.exception), "None expected to be a function object.")
+    self.assertEqual(str(out.exception), "None (type: NoneType) expected to be a function object.")
 
   def test_be_coro_fn(self) -> None:
     """Check that should(v).be_coro_fn() returns the wrapper when v is an async/coroutine function."""
@@ -172,7 +172,10 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should(None).be_coro_fn()
 
-    self.assertEqual(str(out.exception), "None expected to be an async/coroutine function object.")
+    self.assertEqual(
+      str(out.exception),
+      "None (type: NoneType) expected to be an async/coroutine function object.",
+    )
 
   def test_be_coro(self) -> None:
     """Check that should(v).be_coro() returns the wrapper if v is a coroutine."""
@@ -188,7 +191,7 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should(None).be_coro()
 
-    self.assertEqual(str(out.exception), "None expected to be a coroutine.")
+    self.assertEqual(str(out.exception), "None (type: NoneType) expected to be a coroutine.")
 
   def test_be_callable(self) -> None:
     """Check that should(v1).be_callable() returns the wrapper."""
@@ -201,7 +204,7 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should(123).be_callable()
 
-    self.assertEqual(str(out.exception), "123 expected to be callable.")
+    self.assertEqual(str(out.exception), "123 (type: int) expected to be callable.")
 
   def test_not_be_callable(self) -> None:
     """Check that should(v1).not_be_callable() returns the wrapper."""
@@ -227,7 +230,7 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should(False).be_true()
 
-    self.assertEqual(str(out.exception), "False expected to be True.")
+    self.assertEqual(str(out.exception), "False (type: bool) expected to be True.")
 
   def test_be_false(self) -> None:
     """Check that should(v1).be_false() returns the wrapper."""
@@ -240,7 +243,7 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should(True).be_false()
 
-    self.assertEqual(str(out.exception), "True expected to be False.")
+    self.assertEqual(str(out.exception), "True (type: bool) expected to be False.")
 
   def test_be_none(self) -> None:
     """Check that should(v1).be_none() returns the wrapper."""
@@ -253,7 +256,7 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should(True).be_none()
 
-    self.assertEqual(str(out.exception), "True expected to be None.")
+    self.assertEqual(str(out.exception), "True (type: bool) expected to be None.")
 
   def test_not_be_none(self) -> None:
     """Check that should(v1).not_be_none() returns the wrapper."""
@@ -266,7 +269,7 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should(None).not_be_none()
 
-    self.assertEqual(str(out.exception), "None expected not to be None.")
+    self.assertEqual(str(out.exception), "None (type: NoneType) expected not to be None.")
 
   def test_be(self) -> None:
     """Check that should(v1).be(v2) returns the wrapper."""
@@ -279,7 +282,7 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should(None).be("None")
 
-    self.assertEqual(str(out.exception), "None expected to be None.")
+    self.assertEqual(str(out.exception), "None (type: NoneType) expected to be None.")
 
   def test_not_be(self) -> None:
     """Check that should(v1).not_be(v2) returns the wrapper."""
@@ -292,7 +295,7 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should(None).not_be(None)
 
-    self.assertEqual(str(out.exception), "None expected not to be None.")
+    self.assertEqual(str(out.exception), "None (type: NoneType) expected not to be None.")
 
   def test_be_eq(self) -> None:
     """Check that should(v1).be_eq(v2) returns the wrapper."""
@@ -305,7 +308,7 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should(123).be_eq(321)
 
-    self.assertEqual(str(out.exception), "123 expected to be equal to 321.")
+    self.assertEqual(str(out.exception), "123 (type: int) expected to be equal to 321.")
 
   def test_not_be_eq(self) -> None:
     """Check that should(v1).not_be_eq(v2) returns the wrapper."""
@@ -318,7 +321,7 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should(123).not_be_eq(123)
 
-    self.assertEqual(str(out.exception), "Expected 123 to be different.")
+    self.assertEqual(str(out.exception), "Expected 123 (type: int) to be different.")
 
   def test_be_lt(self) -> None:
     """Check that should(v1).be_lt(v2) returns the wrapper."""
@@ -331,7 +334,7 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should(123).be_lt(123)
 
-    self.assertEqual(str(out.exception), "123 expected to be less than 123.")
+    self.assertEqual(str(out.exception), "123 (type: int) expected to be less than 123.")
 
   def test_be_le(self) -> None:
     """Check that should(v1).be_le(v2) returns the wrapper."""
@@ -344,7 +347,9 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should(123).be_le(122)
 
-    self.assertEqual(str(out.exception), "123 expected to be less than or equal to 122.")
+    self.assertEqual(
+      str(out.exception), "123 (type: int) expected to be less than or equal to 122."
+    )
 
   def test_be_gt(self) -> None:
     """Check that should(v1).be_gt(v2) returns the wrapper."""
@@ -357,7 +362,7 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should(123).be_gt(123)
 
-    self.assertEqual(str(out.exception), "123 expected to be greater than 123.")
+    self.assertEqual(str(out.exception), "123 (type: int) expected to be greater than 123.")
 
   def test_be_ge(self) -> None:
     """Check that should(v1).be_ge(v2) returns the wrapper."""
@@ -370,7 +375,9 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should(123).be_ge(124)
 
-    self.assertEqual(str(out.exception), "123 expected to be greater than or equal to 124.")
+    self.assertEqual(
+      str(out.exception), "123 (type: int) expected to be greater than or equal to 124."
+    )
 
   def test_contain(self) -> None:
     """Check that should(v1).contain(v2) returns the wrapper."""
@@ -409,7 +416,7 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should("123").be_in("4")
 
-    self.assertEqual(str(out.exception), "123 expected to be in 4.")
+    self.assertEqual(str(out.exception), "'123' (type: str) expected to be in '4'.")
 
   def test_not_be_in(self) -> None:
     """Check that should(v1).not_be_io(v2) returns the wrapper."""
@@ -422,7 +429,7 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should("2").not_be_in("123")
 
-    self.assertEqual(str(out.exception), "2 expected not to be in 123.")
+    self.assertEqual(str(out.exception), "'2' (type: str) expected not to be in '123'.")
 
   def test_have_len(self) -> None:
     """Check that should(v1).have_len(v2) returns the wrapper."""
@@ -435,7 +442,7 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should("123").have_len(4)
 
-    self.assertEqual(str(out.exception), "123 expected to have length 4.")
+    self.assertEqual(str(out.exception), "'123' (type: str) expected to have length 4.")
 
   def test_not_have_len(self) -> None:
     """Check that should(v1).not_have_len(v2) returns the wrapper."""
@@ -448,7 +455,7 @@ class TestShould(TestCase):
     with self.assertRaises(AssertionError) as out:
       should("123").not_have_len(3)
 
-    self.assertEqual(str(out.exception), "123 expected not to have length 3.")
+    self.assertEqual(str(out.exception), "'123' (type: str) expected not to have length 3.")
 
   def test_have(self) -> None:
     """Check that should(v).have("item") returns a wrapper."""
