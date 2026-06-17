@@ -27,7 +27,7 @@ class AssertThrowContext:
   def __exit__(self, cls, value, tb):
     # (1) pre: something raised?
     if cls is None:
-      assert False, f"Expected {self.E} to be raised."
+      assert False, f"Expected {self.E!r} to be raised."
 
     # (2) assert
     self.e = value

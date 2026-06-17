@@ -5,6 +5,12 @@ if TYPE_CHECKING:
   from typing import Any
 
 
+def fmt(v: Any) -> str:
+  """Formats a value for being inserting into an error message."""
+
+  return f"{v!r} (type: {type(v).__name__})"
+
+
 def assert_caught_error(e: Any, E: type[Exception], match: str | None = None) -> bool:
   """Asserts a caught error with the given info.
 
@@ -21,11 +27,11 @@ def assert_caught_error(e: Any, E: type[Exception], match: str | None = None) ->
   """
 
   # (1) assert
-  assert issubclass(type(e), E), f"Expected error ({type(e)}) to be instance of {E}."
+  assert issubclass(type(e), E), f"Expected error ({type(e)}) to be instance of {E!r}."
 
   if isinstance(match, str):
     assert re.search(match, str(e)) is not None, (
-      f"Expected error message '{e}' to be like '{match}'."
+      f"Expected error message '{e}' to be like {match!r}."
     )
 
   # (2) return true for its usage in a context manager

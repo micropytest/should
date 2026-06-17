@@ -1,5 +1,5 @@
 {
-  "v": "2026.6.3",
+  "v": "2026.6.4",
   "name": "should",
   "desc": "An assertion lib for micro:Pytest and MicroPython.",
   "keywords": [
@@ -35,7 +35,7 @@
       "lib://unittest-discover"
     ]
   },
-  "scripts": {
+  "jobs": {
     "build": {
       "desc": "Prepares the package for its publish.",
       "env": true,
@@ -57,7 +57,10 @@
       "desc": "Runs the tests.",
       "env": true,
       "out": "cmdln+out",
-      "run": "scripts/tests"
+      "run": [
+        "clear",
+        "scripts/tests"
+      ]
     }
   }
 }
