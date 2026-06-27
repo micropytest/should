@@ -1,3 +1,3 @@
 name = "should"
-version = "2026.6.4"
-datetime = "2026-06-17T19:33:06"
+version = "2026.6.5"
+datetime = "2026-06-27T09:06:57"

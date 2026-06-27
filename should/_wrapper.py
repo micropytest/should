@@ -205,6 +205,18 @@ class Wrapper(ABC):
     assert (v := self._value) not in i, f"{fmt(v)} expected not to be in {i!r}."
     return self
 
+  def _empty(self) -> "Wrapper":
+    """Asserts the value is empty."""
+
+    assert len(v := self._value) == 0, f"{fmt(v)} expected to have length 0."
+    return self
+
+  def _not_empty(self) -> "Wrapper":
+    """Asserts the value is not empty."""
+
+    assert len(v := self._value) != 0, f"{fmt(v)} expected to have length greater than 0."
+    return self
+
   def _len(self, size: int) -> "Wrapper":
     """Checks whether the value has a given length."""
 
