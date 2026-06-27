@@ -75,6 +75,10 @@ should(5).be_le(5)
 
 - **`should(value).not_be_in(collection)`**: Asserts that the value is not present in the given collection.
 
+- **`should(value).be_empty()`**: Asserts that the value is empty (that is, its length is zero).
+
+- **`should(value).not_be_empty()`**: Asserts that the value is not empty (that is, its length is greater than zero).
+
 - **`should(value).have_len(length)`**: Asserts that the value has the specified length.
 
 - **`should(value).not_have_len(length)`**: Asserts that the value does not have the specified length.
@@ -197,6 +201,10 @@ When this assert method used, the following assert methods can be used:
 - **`should(v).have(i).same_as(o: Any)`**, similar to **`be()`**
 
 - **`should(v).have(i).not_same_as(o: Any)`**
+
+- **`should(v).have(i).empty()`**.
+
+- **`should(v).have(i).not_empty()`**.
 
 - **`should(v).have(i).len(size: int)`**
 

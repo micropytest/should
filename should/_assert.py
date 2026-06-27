@@ -1,6 +1,6 @@
 import re
 
-from ._util import assert_caught_error
+from ._util import assert_caught_error, fmt
 from ._wrapper import Wrapper
 
 TYPE_CHECKING = False
@@ -160,17 +160,41 @@ class AssertValue(Wrapper):
 
     return self._not_in(i)  # type: ignore
 
-  def have(self, name: str) -> "AssertItemValue":
-    """Check whether the value has a given item."""
+  def have(self, *path: str) -> "AssertItemValue":
+    """Assert the value has a given item or item path.
 
-    assert name in (v := self._value), f"{v} expected to have item '{name}'."
-    return AssertItemValue(v[name])
+    Args:
+      path: Path to the item to assert.
+
+    Returns:
+      The item value for working with it.
+    """
+
+    # (1) assert
+    v = self._value
+
+    for name in path:
+      assert name in v, f"{fmt(v)} expected to have the item '{name}'."
+      v = v[name]
+
+    # (2) return value
+    return AssertItemValue(v)
 
   def not_have(self, name: str) -> "AssertValue":
     """Check whether the value has a given item."""
 
     assert name not in (v := self._value), f"{v} expected not to have item '{name}'."
     return self
+
+  def be_empty(self) -> "AssertValue":
+    """Assert the value has length 0."""
+
+    return self._empty()  # type: ignore
+
+  def not_be_empty(self) -> "AssertValue":
+    """Assert the value has length greater than 0."""
+
+    return self._not_empty()  # type: ignore
 
   def have_len(self, size: int) -> "AssertValue":
     """Checks whether the value has a given length."""
@@ -247,6 +271,16 @@ class AssertItemValue(Wrapper):
     """Checks whether the value is not the same as another."""
 
     return self._not_same_as(o)  # type: ignore
+
+  def empty(self) -> "AssertItemValue":
+    """Assert the value has length 0."""
+
+    return self._empty()  # type: ignore
+
+  def not_empty(self) -> "AssertItemValue":
+    """Assert the value has length greater than 0."""
+
+    return self._not_empty()  # type: ignore
 
   def len(self, size: int) -> "AssertItemValue":
     """Checks whether the value has a given length."""

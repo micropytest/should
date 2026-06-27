@@ -431,6 +431,35 @@ class TestShould(TestCase):
 
     self.assertEqual(str(out.exception), "'2' (type: str) expected not to be in '123'.")
 
+  def test_be_empty(self) -> None:
+    """Check that should(v).be_empty() returns the wrapper."""
+
+    self.assertIsInstance(should([]).be_empty(), AssertValue)
+
+  def test_be_empty_raises_err(self) -> None:
+    """Check that should(v).be_empty() raises error if not empty."""
+
+    with self.assertRaises(AssertionError) as out:
+      should("1234").be_empty()
+
+    self.assertEqual(str(out.exception), "'1234' (type: str) expected to have length 0.")
+
+  def test_not_be_empty(self) -> None:
+    """Check that should(v).be_empty() returns the wrapper."""
+
+    self.assertIsInstance(should([]).be_empty(), AssertValue)
+
+  def test_not_be_empty_raises_err(self) -> None:
+    """Check that should(v).not_be_empty() raises error if not empty."""
+
+    with self.assertRaises(AssertionError) as out:
+      should("").not_be_empty()
+
+    self.assertEqual(
+      str(out.exception),
+      "'' (type: str) expected to have length greater than 0.",
+    )
+
   def test_have_len(self) -> None:
     """Check that should(v1).have_len(v2) returns the wrapper."""
 
@@ -457,18 +486,31 @@ class TestShould(TestCase):
 
     self.assertEqual(str(out.exception), "'123' (type: str) expected not to have length 3.")
 
-  def test_have(self) -> None:
+  def test_have_item_from_name(self) -> None:
     """Check that should(v).have("item") returns a wrapper."""
 
     self.assertIsInstance(should(dict(x=12, y=34)).have("x"), AssertItemValue)
 
-  def test_have_raises_err(self) -> None:
+  def test_have_item_from_path(self) -> None:
+    """Check that should(v).have("x", "y") returns a wrapper."""
+
+    self.assertIsInstance(should({"x": {"y": 12}}).have("x", "y"), AssertItemValue)
+
+  def test_have_item_from_name_raises_err(self) -> None:
     """Check that should(v).have("item") raises error if item not existing."""
 
     with self.assertRaises(AssertionError) as out:
       should(dict()).have("x")
 
-    self.assertEqual(str(out.exception), "{} expected to have item 'x'.")
+    self.assertEqual(str(out.exception), "{} (type: dict) expected to have the item 'x'.")
+
+  def test_have_item_from_path_raises_err(self) -> None:
+    """Check that should(v).have("x", "y) raises error if y not existing."""
+
+    with self.assertRaises(AssertionError) as out:
+      should(dict(x={})).have("x", "y")
+
+    self.assertEqual(str(out.exception), """{} (type: dict) expected to have the item 'y'.""")
 
   def test_not_have(self) -> None:
     """Check that should(v).not_have("item") if not existing."""

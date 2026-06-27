@@ -3,7 +3,7 @@ from unittest import TestCase
 from should import should
 from should._assert import AssertItemValue
 
-v = dict(x=12, y=34, z="1234", t=True, f=False)
+v = dict(x=12, y=34, z="1234", t=True, f=False, e="")
 
 
 class TestShouldItem(TestCase):
@@ -188,7 +188,40 @@ class TestShouldItem(TestCase):
       should(v).have("x").ge(124)
 
     self.assertEqual(
-      str(out.exception), "12 (type: int) expected to be greater than or equal to 124."
+      str(out.exception),
+      "12 (type: int) expected to be greater than or equal to 124.",
+    )
+
+  def test_empty(self):
+    """Check that should(v).have(i).empty() doesn't raise error if empty."""
+
+    self.assertIsInstance(should(v).have("e").empty(), AssertItemValue)
+
+  def test_empty_raises_err(self):
+    """Check that should(v).have(i).empty() raises error if not empty."""
+
+    with self.assertRaises(AssertionError) as out:
+      should(v).have("z").empty()
+
+    self.assertEqual(
+      str(out.exception),
+      "'1234' (type: str) expected to have length 0.",
+    )
+
+  def test_not_empty(self):
+    """Check that should(v).have(i).not_empty() doesn't raise error if not empty."""
+
+    self.assertIsInstance(should(v).have("z").not_empty(), AssertItemValue)
+
+  def test_not_empty_raises_err(self):
+    """Check that should(v).have(i).not_empty() raises error if empty."""
+
+    with self.assertRaises(AssertionError) as out:
+      should(v).have("e").not_empty()
+
+    self.assertEqual(
+      str(out.exception),
+      "'' (type: str) expected to have length greater than 0.",
     )
 
   def test_len(self) -> None:
